@@ -14,3 +14,6 @@ class News(models.Model):
         'Новость',
         max_length=10000
     )
+
+    class Meta:
+        ordering = ('title',)

@@ -1,0 +1,21 @@
+version: '3.3'
+services:
+  db:
+    image: postgres:13.0-alpine
+    volumes:
+      - ./db:/var/lib/postgresql/data/
+    env_file:
+      - ../museum_news/.env
+  backend:
+    image: mvrogozov/mast_backend
+    restart: always
+    depends_on:
+      - db
+    env_file:
+      - ../museum_news/.env
+  nginx:
+    image: nginx:1.19.3
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
