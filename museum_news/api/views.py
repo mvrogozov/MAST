@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import filters
 from utils.wp_checker import NewsCollector
+from .tasks import collect_news
 
 
 from .serializers import NewsSerializer
@@ -18,23 +19,5 @@ class NewsViewSet(ReadOnlyModelViewSet):
 
 class CollectNewsView(APIView):
     def get(self, request):
-        """Собирает новости с сайтов в базу."""
-        collector = NewsCollector()
-        collector.get_urls()
-        for url in collector.urls:
-            data = collector.get_news(url, 10)
-            if not data:
-                continue
-            news = News.objects.all()
-            title = data['title']
-            url = data['url']
-            if news.filter(url=url, title=title).exists():
-                continue
-            #unique_data.append(item)
-
-            News.objects.create(
-                title=data['title'],
-                news=data['post'],
-                url=data['url']
-            )
+        collect_news.apply_async()
         return Response('Done')
