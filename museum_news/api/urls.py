@@ -1,8 +1,7 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from .views import NewsViewSet, CollectNewsView
-
+from .views import CollectNewsView, NewsViewSet
 
 router = DefaultRouter()
 router.register('news', NewsViewSet, basename='api_news')

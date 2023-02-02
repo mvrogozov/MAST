@@ -1,13 +1,11 @@
-from rest_framework.viewsets import ReadOnlyModelViewSet
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import filters
-from utils.wp_checker import NewsCollector
-from .tasks import collect_news
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.viewsets import ReadOnlyModelViewSet
 
-
-from .serializers import NewsSerializer
 from .models import News
+from .serializers import NewsSerializer
+from .tasks import collect_news
 
 
 class NewsViewSet(ReadOnlyModelViewSet):
@@ -19,5 +17,5 @@ class NewsViewSet(ReadOnlyModelViewSet):
 
 class CollectNewsView(APIView):
     def get(self, request):
-        task = collect_news.apply_async()
+        task = collect_news.apply_async((10,))
         return Response({"task_id": task.id}, 200)
