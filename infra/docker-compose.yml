@@ -6,16 +6,26 @@ services:
       - ./db:/var/lib/postgresql/data/
     env_file:
       - ../museum_news/.env
-  backend:
-    image: mvrogozov/mast_backend
+  web:
+    image: mvrogozov/museum_news:v0.0.1
     restart: always
+    ports:
+      - 8000:8000
     depends_on:
       - db
+      - redis
     env_file:
       - ../museum_news/.env
-  nginx:
-    image: nginx:1.19.3
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+
+  celery:
+    #build: ./project
+    image: mvrogozov/museum_news:v0.0.1
+    command: celery --app=museum_news worker --loglevel=info
+    env_file:
+      - ../museum_news/.env
+    depends_on:
+      - web
+      - redis
+
+  redis:
+    image: redis:5-alpine

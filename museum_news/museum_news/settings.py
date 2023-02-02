@@ -61,7 +61,7 @@ DATABASES = {
         'NAME': os.getenv('DB_NAME', default='postgres'),
         'USER': os.getenv('POSTGRES_USER', default='postgres'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD', default='postgres'),
-        'HOST': os.getenv('DB_HOST-', default='localhost'),
+        'HOST': os.getenv('DB_HOST', default='localhost'),
         'PORT': os.getenv('DB_PORT', default=5432)
     }
 }
@@ -90,12 +90,9 @@ REST_FRAMEWORK = {
     'SEARCH_PARAM': 'q'
 }
 
-#CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://localhost:6379")
-#CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER", "redis://localhost:6379")
 
-CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://localhost:6379")
-CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER", "redis://localhost:6379")
-#redis-server
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://127.0.0.1:6379")
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_BACKEND", "redis://127.0.0.1:6379")
 
 LANGUAGE_CODE = 'en-us'
 

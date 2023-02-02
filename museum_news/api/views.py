@@ -19,5 +19,5 @@ class NewsViewSet(ReadOnlyModelViewSet):
 
 class CollectNewsView(APIView):
     def get(self, request):
-        collect_news.apply_async()
-        return Response('Done')
+        task = collect_news.apply_async()
+        return Response({"task_id": task.id}, 200)

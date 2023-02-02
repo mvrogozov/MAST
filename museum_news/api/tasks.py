@@ -12,7 +12,6 @@ def collect_news():
         data = collector.get_news(url, 10)
         if not data:
             continue
-        print('task', url)
         news = News.objects.all()
         title = data['title']
         url = data['url']
