@@ -18,9 +18,8 @@ services:
       - ../museum_news/.env
 
   celery:
-    #build: ./project
     image: mvrogozov/museum_news:v0.0.1
-    command: celery --app=museum_news worker --loglevel=info
+    command: celery --app=museum_news worker --pool=solo --loglevel=info
     env_file:
       - ../museum_news/.env
     depends_on:

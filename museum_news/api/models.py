@@ -16,4 +16,4 @@ class News(models.Model):
     )
 
     class Meta:
-        ordering = ('title',)
+        ordering = ('url',)
