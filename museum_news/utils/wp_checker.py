@@ -3,6 +3,7 @@ import json
 import re
 
 import requests
+from api.models import TITLE_LENGTH, NEWS_LENGTH
 
 
 class NewsCollector():
@@ -37,16 +38,16 @@ class NewsCollector():
         wp_api_url = f'/wp-json/wp/v2/posts/?per_page={per_page}'
         result = []
         try:
-            response = requests.get(url + wp_api_url)
+            response = requests.get(url + wp_api_url, timeout=5)
             if response.headers['Content-Type'].startswith(
                 'application/json'
             ):
                 content = json.loads(response.content)
                 for post in content:
                     result.append({
-                        'title': post['title']['rendered'],
+                        'title': post['title']['rendered'][:TITLE_LENGTH],
                         'post': self.strip_tags(
-                            post['content']['rendered']
+                            post['content']['rendered'][:NEWS_LENGTH]
                         ),
                         'url': url
                     })

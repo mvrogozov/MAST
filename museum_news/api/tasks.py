@@ -21,9 +21,12 @@ def collect_news(per_page: int) -> None:
             url = post['url']
             if news.filter(url=url, title=title).exists():
                 continue
-            News.objects.create(
-                title=post['title'],
-                news=post['post'],
-                url=post['url']
-            )
+            try:
+                News.objects.create(
+                    title=post['title'],
+                    news=post['post'],
+                    url=post['url']
+                )
+            except Exception as e:
+                print('Ошибка записи в БД: ', e)
     print('Collecting finished')

@@ -1,5 +1,8 @@
 from django.db import models
 
+TITLE_LENGTH = 256
+NEWS_LENGTH = 10000
+
 
 class News(models.Model):
     url = models.CharField(
@@ -8,11 +11,11 @@ class News(models.Model):
     )
     title = models.CharField(
         'Заголовок',
-        max_length=256
+        max_length=TITLE_LENGTH
     )
     news = models.TextField(
         'Новость',
-        max_length=10000
+        max_length=NEWS_LENGTH
     )
 
     class Meta:

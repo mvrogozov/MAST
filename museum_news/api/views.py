@@ -18,8 +18,6 @@ class NewsViewSet(ReadOnlyModelViewSet):
 
 class CollectNewsView(APIView):
     def get(self, request):
-        #  для удаления задачи: app.control.revoke(
-        # '777', destination=None, terminate=True, signal='Restart collecting')
         a = app.control.inspect().active()
         if not a:
             return Response({"message": "collecting is running"}, 200)
