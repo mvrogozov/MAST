@@ -3,7 +3,8 @@ import json
 import re
 
 import requests
-from api.models import TITLE_LENGTH, NEWS_LENGTH
+
+from api.models import NEWS_LENGTH, TITLE_LENGTH
 
 
 class NewsCollector():

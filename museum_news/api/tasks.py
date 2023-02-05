@@ -1,4 +1,5 @@
 from celery import shared_task
+
 from utils.wp_checker import NewsCollector
 
 from .models import News

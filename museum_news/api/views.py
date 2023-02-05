@@ -3,10 +3,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
+from museum_news.celery import app
+
 from .models import News
 from .serializers import NewsSerializer
 from .tasks import collect_news
-from museum_news.celery import app
 
 
 class NewsViewSet(ReadOnlyModelViewSet):
